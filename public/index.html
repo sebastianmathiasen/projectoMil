@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú del Bar</title>
+</head>
+
+<body>
+    <h1>Menú del Bar</h1>
+    <div id="menu-container">
+        <!-- Aquí puedes agregar los items del menú desde el frontend -->
+    </div>
+
+    <script>
+        // Aquí podrías usar JavaScript para hacer solicitudes a tu backend
+        fetch('/api/menu')
+            .then(response => response.json())
+            .then(data => {
+                const menuContainer = document.getElementById('menu-container');
+                data.forEach(item => {
+                    const menuItem = document.createElement('div');
+                    menuItem.innerHTML = `<h3>${item.name}</h3><p>${item.description}</p><p>Precio: ${item.price}</p>`;
+                    menuContainer.appendChild(menuItem);
+                });
+            });
+    </script>
+</body>
+
+</html>
