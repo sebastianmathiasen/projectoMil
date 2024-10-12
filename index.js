@@ -1,17 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const categoriaRoutes = require('./routes/categoria');
+
+// Importar rutas
 const usuarioRoutes = require('./routes/usuario');
+const categoriaRoutes = require('./routes/categoria');
 const pedidoRoutes = require('./routes/pedido');
 
-// Cargar variables de entorno
+// Configuración de variables de entorno
 dotenv.config();
 
 const app = express();
-app.use(express.json());
+app.use(express.json()); // Middleware para JSON
 
-// Conexión a MongoDB
+// Conectar a MongoDB
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -23,16 +25,11 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Usar las rutas
 app.use('/api/usuarios', usuarioRoutes);
-app.use('/api/pedidos', pedidoRoutes);
 app.use('/api/categorias', categoriaRoutes);
+app.use('/api/pedidos', pedidoRoutes);
 
-// Ruta básica de prueba
-app.get('/', (req, res) => {
-    res.send('API funcionando correctamente');
-});
-
-// Puerto de escucha
-const PORT = process.env.PORT || 5000;
+// Puerto
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
